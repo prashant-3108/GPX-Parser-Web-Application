@@ -7,7 +7,7 @@ together signifying Routes/Tracks with necessary information using Clang & XML P
 - Developed a User Interface (Javascript,Ajax,Jquery) which interacts with client to display & modify the information about GPX Files.
 - Developed a RESTful API (Expess.js) which interacts with the developed C backend with “ffi-napi” using JSON strings to process the client queries like downloading/uploading files to server, Adding Routes, Modifying Routes/Tracks,
 etc. 
-- UI supports interaction to the database also allowing user to perform CRUD operations on GPX files and components into database.
+- UI supports interaction to the remote databases also allowing user to perform CRUD operations on GPX files and components into database.
 
 <br>
 
