@@ -89,7 +89,7 @@ app.get("/uploads/:name", function (req, res) {
   });
 });
 
-//******************** Your code goes here ********************//
+//******************** code goes here ********************//
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
