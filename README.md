@@ -9,7 +9,9 @@ together signifying Routes/Tracks with necessary information using Clang & XML P
 etc. 
 - UI supports interaction to the database also allowing user to perform CRUD operations on GPX files and components into database.
 
-![Globe](globe.jpg)
+<br>
+
+![Globe](/sample_gpx_files/globe.jpg)
 
 <br>
 
