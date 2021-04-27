@@ -1,0 +1,110 @@
+html {
+  width: 60%;
+  height: 100%;
+  min-height: 100%;
+  margin: 0 auto;
+  font-size: 16px;
+  background-color: #ffffff;
+}
+
+body {
+  height: 100%;
+  min-height: 100%;
+  line-height: 1.75;
+  background-color: #ffffff;
+}
+
+a:link:hover {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  text-decoration: underline;
+  cursor: pointer;
+  cursor: hand;
+}
+
+input[type="submit"],
+button {
+  cursor: pointer;
+  cursor: hand;
+}
+@media (max-width: 900px) {
+  html {
+    font-size: 14px !important;
+    width: 80% !important;
+  }
+}
+@media (max-width: 480px) {
+  html {
+    font-size: 12px !important;
+    width: 90% !important;
+  }
+}
+@media (max-width: 320px) {
+  html {
+    font-size: 12px !important;
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 2000px) {
+  .container {
+    width: 1800px;
+  }
+}
+
+
+*{
+  font-family: 'Times New Roman', Times, serif;
+}
+
+html,body{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* background-color: black; */
+    background-image: url(https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/world-map-in-deep-turquoise-leah-biernacki.jpg);
+}
+
+
+
+h3 ,h5{
+  text-align: center;
+  font-weight: 700;
+}
+div,span {
+  margin: 5px;
+}
+
+.container {
+  background-color: rgb(243, 248, 240);
+  border: 2px solid rgb(119, 113, 113);
+  width: 100%;
+  height: 500px;
+  margin: auto;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+
+table,
+th {
+  align-content: center;
+  width: 1090px;
+  border: 0.2px solid black;
+  border-collapse: collapse;
+}
+
+p {
+  margin-left: 8px;
+}
+
+tr {
+  border: solid;
+  border-width: 1px 0;
+}
+
+table td {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  text-align: center;
+}

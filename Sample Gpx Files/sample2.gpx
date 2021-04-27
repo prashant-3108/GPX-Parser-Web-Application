@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
+version="1.1"
+creator="Topo Maps">
+<trk>
+<name>Rozanski parking lot to Arboretum entrance</name>
+<trkseg>
+<trkpt lat="43.532741" lon="-80.226037">
+<ele>338.0</ele>
+</trkpt>
+<trkpt lat="43.532182" lon="-80.225096">
+<ele>333.6</ele>
+</trkpt>
+<trkpt lat="43.53241" lon="-80.224742">
+<ele>331.8</ele>
+</trkpt>
+<trkpt lat="43.532556" lon="-80.224208">
+<ele>329.7</ele>
+</trkpt>
+<trkpt lat="43.532907" lon="-80.223827">
+<ele>327.5</ele>
+</trkpt>
+<trkpt lat="43.533205" lon="-80.223166">
+<ele>329.3</ele>
+</trkpt>
+<trkpt lat="43.533739" lon="-80.222611">
+<ele>332.6</ele>
+</trkpt>
+<trkpt lat="43.534" lon="-80.222501">
+<ele>334.0</ele>
+</trkpt>
+<trkpt lat="43.534833" lon="-80.221277">
+<ele>337.7</ele>
+</trkpt>
+<trkpt lat="43.535813" lon="-80.220125">
+<ele>329.7</ele>
+</trkpt>
+</trkseg>
+</trk>
+</gpx>

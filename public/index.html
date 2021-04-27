@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>GPS Data Viewer</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="GPS Data Viewer" />
+  <meta name="keywords" content="GPS Data Viewer" />
+  <meta name="author" content="GPS Data Viewer" />
+  <!-- Load jquery, bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" type="text/css" href="/style.css" />
+  <!-- Custom CSS End -->
+</head>
+
+<body>
+  <div class="container" id="file_log_panel">
+    <div>
+      <h3 style="font-family: 'Times New Roman', Times, serif; color: indigo">
+        GPX FILES
+      </h3>
+      <div>
+        <p style="
+              font-family: 'Times New Roman', Times, serif;
+              text-align: center;
+              font-size: 18px;
+              background-color: rgb(158, 231, 225);
+              border-radius: 4px;
+              font-weight: bold;
+            ">
+          In this Section You can Upload your GPX Files and can download files
+          in server.
+        </p>
+      </div>
+      <div>
+        <h5 class="message" id="file_panel_table_message" style="
+              font-family: 'Times New Roman', Times, serif;
+              font-size: 18px;
+              font-weight: bold;
+              margin-left: 8px;
+            ">
+          GPX Files and Data
+        </h5>
+      </div>
+
+      <div id="nofiles" style="text-align: center;">
+        <p id="nofiles_p" style="font-size: 25px; font-weight: bolder; color: red;"></p>
+      </div>
+
+      <!-- Successful Upload Message -->
+      <div>
+        <p id="uploadSuccess" style="
+              margin-left: 8px;
+              font-family: 'Times New Roman', Times, serif;
+              font-weight: bold;
+              font-size: 18px;
+              text-align: center;
+              color: rgb(63, 43, 247);
+            "></p>
+      </div>
+
+      <div class="table_container" id="table1_div">
+        <table id="Files_Table" class="tables">
+          <tr>
+            <th style="text-align: center">File name(click to download)</th>
+            <th style="text-align: center">Version</th>
+            <th style="text-align: center">Creator</th>
+            <th style="text-align: center">Number of WayPoints</th>
+            <th style="text-align: center">Number of Routes</th>
+            <th style="text-align: center">Number of Tracks</th>
+          </tr>
+        </table>
+      </div>
+
+      <br />
+
+      <div>
+        <p style="
+              margin-left: 8px;
+              font-family: 'Times New Roman', Times, serif;
+              font-weight: bold;
+              font-size: 18px;
+            ">
+          Upload a GPX file (.gpx)
+        </p>
+      </div>
+      <div class="form_class">
+        <form ref="uploadForm" id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <input type="file" name="uploadFile" class="btn btn-secondary" />
+            <input type="submit" value="Upload" class="btn btn-secondary" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <br style="color: rgb(211, 236, 187)" />
+  <br style="color: rgb(211, 236, 187)" />
+
+  <div class="container" id="gpx_view_panel">
+    <div style="margin-top: 15px">
+      <h3 style="font-family: 'Times New Roman', Times, serif; color: indigo">
+        GPX VIEW
+      </h3>
+    </div>
+
+    <div>
+      <p style="
+              font-family: 'Times New Roman', Times, serif;
+              text-align: center;
+              font-size: 18px;
+              background-color: rgb(158, 231, 225);
+              border-radius: 4px;
+              font-weight: bold;
+            ">
+        In this Section Get Information about all Components of the Selected
+        GPX File.
+      </p>
+    </div>
+
+    <div>
+      <label for="GPX Files" style="
+              font-family: 'Times New Roman', Times, serif;
+              font-size: 18px;
+              font-weight: bold;
+              margin-left: 8px;
+            ">
+        Choose any GPX File:
+      </label>
+      <br />
+      <select name="GPX Files" id="gpx_view_dd" style="
+              font-weight: 400;
+              height: 30px;
+              margin-left: 8px;
+              border-radius: 2px;
+            ">
+        <option value="" selected disabled hidden>Select</option>
+      </select>
+      <br />
+      <br />
+    </div>
+    <div>
+      <p id="nocomp" style="font-size: 18px; text-align: center; color: darkred; font-weight: bold;">
+      </p>
+    </div>
+    <div class="row">
+      <div class="col">
+        <table id="Gpx_view_table" class="files"></table>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <br /><br />
+
+  <div class="container" id="additional_panel" style="height: 1200px">
+    <div style="margin-top: 15px">
+      <h3 style="font-family: 'Times New Roman', Times, serif; color: indigo">
+        GPX FUNCTIONALITIES
+      </h3>
+      <div>
+        <p style="
+              font-family: 'Times New Roman', Times, serif;
+              text-align: center;
+              font-size: 18px;
+              background-color: rgb(158, 231, 225);
+              border-radius: 4px;
+              font-weight: bold;
+            ">
+          In this Section You can carry out different functionalities to create or update or gather GPX Information.
+        </p>
+      </div>
+      <br />
+
+      <div>
+        <h5>CREATE GPX FILE</h5>
+      </div>
+
+      <div>
+        <p style="font-size: 18px; text-align: center; color: darkred;font-weight: bold;">
+          Create a GPX File by adding the Following information
+        </p>
+      </div>
+
+      <div class="CreateGPX">
+        <div>
+          <form ref="NameForm" id="file_input_for_change">
+            <div class="form-group">
+              <div>
+                <label for="addName" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter the Name of the
+                  File.</label>
+                <input type="text" class="form-control" id="addName" placeholder="Name" required />
+              </div>
+              <div>
+                <label for="addVersion" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter the
+                  Version.</label>
+                <input type="text" class="form-control" id="addVersion" placeholder="Eg. 1.1" required />
+              </div>
+              <div>
+                <label for="addCreator" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter the Creator
+                  of the GPX file.</label>
+                <input type="text" class="form-control" id="addCreator" placeholder="Creator" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <input style="background-color: rgb(45, 149, 253); margin-left: 8px;" value="Create GPX" type="submit"
+                class="btn btn-secondary" />
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Component Name Change Division -->
+      <div>
+        <h5>COMPONENT NAME CHANGE</h5>
+      </div>
+
+      <div>
+        <p style="font-size: 18px; text-align: center; color: darkred;font-weight: bold;">
+          Choose a file in GPX View Panel to change names of components.
+        </p>
+      </div>
+
+      <div class="NameChange">
+        <div style="border: black 2px">
+          <div style="align-content: center">
+            <select name="Select_Component" id="Select_Component" style="
+                font-weight: 400;
+                height: 30px;
+                width: max-content;
+                margin-left: 8px;
+                border-radius: 2px;
+                text-align: center;
+              ">
+              <option value="dummy" selected disabled hidden>Select</option>
+            </select>
+          </div>
+          <div></div>
+          <form ref="change_name" id="change_name">
+            <div class="form-group">
+              <label id="show1" for="component_name"
+                style="font-size: 18px; font-weight: bold; margin-left: 8px"></label>
+              <input type="text" class="form-control" id="component_name" placeholder="Name" />
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btn btn-secondary" />
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <br />
+      <br /s>
+
+      <!-- Components Show Other Data. -->
+      <div>
+        <h5>SHOW OTHER DATA</h5>
+      </div>
+
+      <div>
+        <p style="font-size: 18px; text-align: center; color: darkred;font-weight: bold;">
+          Choose a file in GPX View Panel to see the other information about the
+          component.
+        </p>
+      </div>
+      <div class="showDATA">
+        <div>
+          <select name="Select_Component_OD" id="Select_Component_OD" style="
+              font-weight: 400;
+              height: 30px;
+              width: max-content;
+              margin-left: 12px;
+              border-radius: 2px;
+              text-align: center;
+            ">
+            <option value="" selected disabled hidden>Select</option>
+          </select>
+        </div>
+      </div>
+      <br />
+      <div>
+        <table id="other_data_tb" class="tables"></table>
+      </div>
+
+      <br />
+      <br />
+
+      <!-- Show Routes/Tracks Path Between -->
+      <div>
+        <h5>FIND PATH BETWEEN</h5>
+      </div>
+
+      <div>
+        <p style="font-size: 18px; text-align: center; color: darkred;font-weight: bold;">
+          Enter The Two Wayoints and Tolerance to Find the Components connecting
+          the Path.
+        </p>
+      </div>
+
+      <div>
+        <form ref="change_name" id="find_path">
+          <div class="form-group">
+            <label for="Ilat" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter Source Latitude</label>
+            <input type="text" class="form-control" id="Ilat" placeholder="-90&#176; to 90&#176;" required />
+          </div>
+          <div class="form-group">
+            <label for="Ilong" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter Source
+              Longitude</label>
+            <input type="text" class="form-control" id="Ilong" placeholder="-180&#176; to 180&#176;" required />
+          </div>
+          <div class="form-group">
+            <label for="Flat" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter Destination
+              Latitude</label>
+            <input type="text" class="form-control" id="Flat" placeholder="-90&#176; to 90&#176;" required />
+          </div>
+          <div class="form-group">
+            <label for="Flong" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter Destination
+              Longitude</label>
+            <input type="text" class="form-control" id="Flong" placeholder="-180&#176; to 180&#176;" required />
+          </div>
+          <div class="form-group">
+            <label for="tolerance" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter Tolerance Value in
+              metres</label>
+            <input value="10" type="text" class="form-control" id="tolerance" placeholder="Default 10m" />
+          </div>
+          <div class="form-group">
+            <input value="Find Path" type="submit" class="btn btn-secondary"
+              style="background-color: rgb(82, 80, 79); color: white;" />
+          </div>
+        </form>
+      </div>
+      <br>
+
+      <div>
+        <table id="find_pathTB">
+        </table>
+      </div>
+
+      <br />
+      <!-- Add Routes -->
+
+      <div>
+        <h5>ADD ROUTE</h5>
+      </div>
+
+      <div>
+        <p style="font-size: 18px; text-align: center; color: darkred;font-weight: bold;">
+          Select a File and Add a Route to it.
+        </p>
+      </div>
+
+      <div>
+        <label for="addRouteFiles" style="
+              font-family: 'Times New Roman', Times, serif;
+              font-size: 18px;
+              font-weight: bold;
+              margin-left: 8px;
+            ">
+          Choose a GPX file to Add Route:
+        </label>
+        <br />
+        <select name="addRouteFiles" id="addRoute" style="
+              font-weight: 400;
+              height: 30px;
+              margin-left: 8px;
+              border-radius: 2px;
+            ">
+          <option value="" selected disabled hidden>Select</option>
+        </select>
+        <br />
+        <br />
+      </div>
+
+      <div>
+        <p style="font-size: 18px; text-align: center; color: darkred; font-weight: bold;" id="NametoAddROute">
+
+        </p>
+      </div>
+
+      <div id="route_info">
+        <div>
+          <div>
+            <p style="font-size: 18px; text-align: center; color: rgb(70, 71, 87)">
+              Enter Waypoints, add them to Store and afterwords click add Route to Add Route to File.
+            </p>
+          </div>
+
+          <form ref="NameForm" id="addWaypoints">
+            <div class="form-group">
+              <label for="addlat" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter Latitude</label>
+              <input type="text" class="form-control" id="addlat" placeholder="-90&#176; to 90&#176;" required />
+            </div>
+            <div class="form-group">
+              <label for="addlong" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter Latitude</label>
+              <input type="text" class="form-control" id="addlong" placeholder="-180&#176; to 180&#176;" required />
+            </div>
+            <div class="form-group">
+              <input
+                style=" margin-left: 6px; background-color: rgba(226, 100, 100, 0.883); font-size: 14px; width: max-content;"
+                value="Add Waypoint" type="submit" class="btn btn-secondary" />
+            </div>
+          </form>
+
+          <form ref="NameForm" id="addRouteinfo">
+            <div class="form-group">
+              <label for="addNameRT" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter the Name of the
+                Route.</label>
+              <input type="text" class="form-control" id="addNameRT" placeholder="Name" required />
+            </div>
+
+            <div class="form-group" style="text-align: center;">
+              <input
+                style=" width: max-content; background-color: rgb(81, 56, 97); font-size: larger; color: rgb(245, 233, 245);"
+                value="Add Route" type="submit" class="btn btn-secondary" />
+            </div>
+          </form>
+        </div>
+      </div>
+      <br>
+      <br>
+
+    </div>
+  </div>
+
+  <br />
+  <br />
+
+  <!-- Database container and functionalities -->
+
+  <div class="container" id="db_panel" style="height: 1200px">
+    <div style="margin-top: 15px">
+      <h3 style="font-family: 'Times New Roman', Times, serif; color: indigo">
+        GPX DATABASE FUNCTIONALITIES
+      </h3>
+      <div>
+        <p style="
+              font-family: 'Times New Roman', Times, serif;
+              text-align: center;
+              font-size: 18px;
+              background-color: rgb(158, 231, 225);
+              border-radius: 4px;
+              font-weight: bold;
+            ">
+          In this Section You can Connect to the Database and Execute Custom Queries
+        </p>
+      </div>
+      <br>
+
+      <div>
+        <h5 class="message" id="db_login_message" style="
+              font-family: 'Times New Roman', Times, serif;
+              font-weight: bold;
+              margin-left: 8px;
+            ">
+          DATABASE LOGIN
+        </h5>
+      </div>
+      <div>
+        <p style="font-size: 18px; text-align: center; color: darkred;font-weight: bold;">
+          Enter the Credentials to Login
+        </p>
+      </div>
+
+      <div class="LOGIN">
+        <div>
+          <form ref="NameForm" id="db_credentials">
+            <div class="form-group">
+              <div>
+                <label for="add_hostname" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter the
+                  Host.
+                </label>
+                <input type="text" class="form-control" id="add_hostname" placeholder="Eg. 192.16.18.200 or www.db.org" required />
+              </div>
+              <div>
+                <label for="add_username" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter the
+                  Username.
+                </label>
+                <input type="text" class="form-control" id="add_username" placeholder="Username" required />
+              </div>
+              <div>
+                <label for="password_db" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter the
+                  Password</label>
+                <input type="password" class="form-control" id="password_db" placeholder="Password" required />
+              </div>
+              <div>
+                <label for="add_DB_name" style="font-size: 18px; font-weight: bold; margin-left: 8px">Enter the Name
+                  of the Database.</label>
+                <input type="text" class="form-control" id="add_DB_name" placeholder="Database Name" required />
+              </div>
+            </div>
+            <div class="form-group" style="text-align: center;">
+              <input style="background-color: rgb(52, 170, 36); margin-left: 8px; font-weight: bolder;" value="LOGIN"
+                type="submit" class="btn btn-secondary" />
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="LOGOUT">
+        <div>
+          <form ref="NameForm" id="db_logout">
+            <div class="form-group" style="text-align: center;">
+              <input style="background-color: rgb(231, 15, 15); margin-left: 8px; font-weight: bolder;" value="LOGOUT"
+                type="submit" class="btn btn-secondary" />
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <br>
+
+      <div id="after_login" hidden=true>
+
+        <div id="db_info_div" hidden=true>
+          <p id="Database_info"
+            style="font-size: 25px; text-align: center; color: rgb(32, 55, 160);font-weight: bold;border:rgb(162, 173, 235); border-width:5px; border-style:ridge; border-radius: 5px; background-color: rgb(211, 236, 187);">
+          </p>
+        </div>
+
+        <br>
+
+        <div>
+          <h5 class="message" style="
+                font-family: 'Times New Roman', Times, serif;
+                font-weight: bold;
+                margin-left: 8px;
+              ">
+            STORE DATA TO DATABASE
+          </h5>
+        </div>
+
+        <div>
+          <p style="font-size: 20px; text-align: center; color: darkred;font-weight: bold;">
+            In this Section You can Store all Valid GPX Files Data in Server to your Database.
+          </p>
+        </div>
+
+
+        <div id="STORE_DATA">
+          <div>
+            <form ref="NameForm" id="db_store">
+              <div class="form-group" style="text-align: center;">
+                <input style="background-color: rgb(242, 7, 195); margin-left: 8px; font-weight: bolder;"
+                  value="STORE GPX DATA" type="submit" class="btn btn-secondary" />
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <br>
+
+        <div>
+          <h5 class="message" style="
+                font-family: 'Times New Roman', Times, serif;
+                font-weight: bold;
+                margin-left: 8px;
+              ">
+            CLEAR DATABASE TABLES
+          </h5>
+        </div>
+
+        <div>
+          <p style="font-size: 20px; text-align: center; color: darkred;font-weight: bold;">
+            In this Section You can Empty all the FILES, ROUTES and WAYPOINTS in the connected Database.
+          </p>
+        </div>
+
+        <div id="CLEAR_DATA">
+          <div>
+            <form ref="NameForm" id="db_clear">
+              <div class="form-group" style="text-align: center;">
+                <input style="background-color: rgb(105, 68, 114); margin-left: 8px; font-weight: bolder;"
+                  value="CLEAR DATABASE TABLES" type="submit" class="btn btn-secondary" />
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <br>
+
+        <div>
+          <h5 class="message" style="
+                font-family: 'Times New Roman', Times, serif;
+                font-weight: bold;
+                margin-left: 8px;
+              ">
+            CLEAR DATABASE TABLES
+          </h5>
+        </div>
+
+        <div>
+          <p style="font-size: 20px; text-align: center; color: darkred;font-weight: bold;">
+            In this Section You can Empty all the FILES, ROUTES and WAYPOINTS in the connected Database.
+          </p>
+        </div>
+
+        <div id="SHOW_DB">
+          <div>
+            <form ref="NameForm" id="db_show">
+              <div class="form-group" style="text-align: center;">
+                <input style="background-color: rgb(14, 81, 112); margin-left: 8px; font-weight: bolder;"
+                  value="SHOW STATUS" type="submit" class="btn btn-secondary" />
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <br>
+
+        <div>
+          <h5 class="message" style="
+                font-family: 'Times New Roman', Times, serif;
+                font-weight: bold;
+                margin-left: 8px;
+              ">
+            DISPLAY ROUTES
+          </h5>
+        </div>
+
+        <div>
+          <p style="font-size: 20px; text-align: center; color: darkred;font-weight: bold;">
+            Display all the ROUTES in the connected Database.
+          </p>
+        </div>
+
+
+        <div id="show_route_name" style="text-align: center;">
+          <div>
+            <form ref="NameForm" id="rt_display_name">
+              <div class="form-group" style="text-align: center;">
+                <input
+                  style="background-color: rgb(204, 225, 241); margin-left: 8px; font-weight: bolder; color: black;"
+                  value="SORT BY NAME" type="submit" class="btn btn-secondary" />
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div id="show_route_len" style="text-align: center;">
+          <div>
+            <form ref="NameForm" id="rt_display_length">
+              <div class="form-group" style="text-align: center;">
+                <input
+                  style="background-color: rgb(204, 225, 241); margin-left: 8px; font-weight: bolder; color: black;"
+                  value="SORT BY LENGTH" type="submit" class="btn btn-secondary" />
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <table id="all_routes" class="files"></table>
+          </div>
+        </div>
+
+        <br>
+
+        <div>
+          <h5 class="message" style="
+                font-family: 'Times New Roman', Times, serif;
+                font-weight: bold;
+                margin-left: 8px;
+              ">
+            DISPLAY ROUTES FROM A SPECIFIC FILE.
+          </h5>
+        </div>
+
+        <div>
+          <p style="font-size: 20px; text-align: center; color: darkred;font-weight: bold;">
+            Display all the ROUTES of a particular GPX file in the connected Database.
+          </p>
+        </div>
+
+        <div>
+          <label for="GPX Files" style="
+                  font-family: 'Times New Roman', Times, serif;
+                  font-size: 18px;
+                  font-weight: bold;
+                  margin-left: 8px;
+                ">
+            Choose any GPX File:
+          </label>
+          <br />
+          <select name="GPX Files" id="db_rtfile_dd" style="
+                  font-weight: 400;
+                  height: 30px;
+                  margin-left: 8px;
+                  border-radius: 2px;
+                ">
+            <option value="" selected disabled hidden>Select</option>
+          </select>
+        </div>
+
+        <div>
+          <p id="rtfile" style="font-size: 20px; text-align: center; color: darkred;font-weight: bold;">
+          </p>
+        </div>
+
+        <div id="fileRT">
+          <div id="file_show_route_name" style="text-align: center;">
+            <div>
+              <form ref="NameForm" id="file_rt_display_name">
+                <div class="form-group" style="text-align: center;">
+                  <input
+                    style="background-color: rgb(204, 225, 241); margin-left: 8px; font-weight: bolder; color: black;"
+                    value="SORT BY NAME" type="submit" class="btn btn-secondary" />
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div id="file_show_route_len" style="text-align: center;">
+            <div>
+              <form ref="NameForm" id="file_rt_display_length">
+                <div class="form-group" style="text-align: center;">
+                  <input
+                    style="background-color: rgb(204, 225, 241); margin-left: 8px; font-weight: bolder; color: black;"
+                    value="SORT BY LENGTH" type="submit" class="btn btn-secondary" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <table id="file_all_routes" class="files"></table>
+          </div>
+        </div>
+
+      </div>
+      <br>
+
+    </div>
+  </div>
+
+  <br>
+  <br><br>
+
+  <!-- Leave me at the bottom of body -->
+  <script src="/index.js"></script>
+</body>
+
+</html>
